@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header";
-import SearchBar from "./components/SearchBar/SearchBar";
-import FlightCard from "./components/FlightCard/FlightCard";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import FlightCard from "./components/FlightCard";
 import flightData from "./data/flightData.json";
 import "./App.css";
 

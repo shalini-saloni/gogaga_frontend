@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 
 const Header = () => {
   const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const getInitials = (name) => {
@@ -22,18 +25,33 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
+    navigate('/');
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
   };
 
   return (
     <header className="app-header">
       <div className="header-container">
         <div className="header-left">
-          <div className="logo">
+          <div className="logo" onClick={() => handleNavigation('/')} style={{cursor: 'pointer'}}>
             <h1>gogaga</h1>
           </div>
           <nav className="main-nav">
-            <a href="/">Dashboard</a>
-            <a href="/bookings">My Bookings</a>
+            <button 
+              onClick={() => handleNavigation('/')}
+              className={location.pathname === '/' ? 'active' : ''}
+            >
+              Dashboard
+            </button>
+            <button 
+              onClick={() => handleNavigation('/packages')}
+              className={location.pathname === '/packages' ? 'active' : ''}
+            >
+              Packages
+            </button>
           </nav>
         </div>
 
@@ -58,19 +76,6 @@ const Header = () => {
                     </div>
                   </div>
                   <div className="dropdown-divider"></div>
-                  <a href="/profile" className="dropdown-item">
-                    <span className="dropdown-icon">👤</span>
-                    Profile
-                  </a>
-                  <a href="/bookings" className="dropdown-item">
-                    <span className="dropdown-icon">🎫</span>
-                    My Bookings
-                  </a>
-                  <a href="/settings" className="dropdown-item">
-                    <span className="dropdown-icon">⚙️</span>
-                    Settings
-                  </a>
-                  <div className="dropdown-divider"></div>
                   <button onClick={handleLogout} className="dropdown-item logout-btn">
                     <span className="dropdown-icon">🚪</span>
                     Logout
@@ -80,8 +85,12 @@ const Header = () => {
             </div>
           ) : (
             <div className="auth-buttons">
-              <a href="/login" className="btn-login">Login</a>
-              <a href="/signup" className="btn-signup">Sign Up</a>
+              <button onClick={() => handleNavigation('/login')} className="btn-login">
+                Login
+              </button>
+              <button onClick={() => handleNavigation('/signup')} className="btn-signup">
+                Sign Up
+              </button>
             </div>
           )}
         </div>

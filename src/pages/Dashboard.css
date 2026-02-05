@@ -1,0 +1,29 @@
+.flight-grid {
+  display: flex;
+  gap: 20px;
+  height: 70vh; /* Limits height to create the scroll effect */
+  padding: 15px;
+  background: #f1f5f9;
+}
+
+.flight-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-area {
+  overflow-y: auto; /* Enables scrolling for flight cards */
+  flex: 1;
+  padding-right: 10px;
+}
+
+.price-summary-banner {
+  background: #1e3a8a; /* Navy Blue background as per image */
+  color: white;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px 8px 0 0;
+  font-size: 14px;
+}
