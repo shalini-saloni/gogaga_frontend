@@ -1,0 +1,413 @@
+.package-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%);
+  padding: 32px 0 80px 0;
+}
+
+.package-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.package-hero {
+  text-align: center;
+  margin-bottom: 48px;
+  animation: fadeIn 0.6s ease;
+}
+
+.package-hero h1 {
+  font-size: 48px;
+  font-weight: 800;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  letter-spacing: -1px;
+}
+
+.package-hero p {
+  font-size: 18px;
+  color: #666;
+  margin: 0;
+}
+
+.package-content {
+  display: grid;
+  gap: 32px;
+}
+
+/* Destinations Section */
+.destinations-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.destinations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.destination-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 3px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.destination-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.destination-card.selected {
+  border-color: #22c55e;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+}
+
+.dest-image {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.destination-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.dest-price {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 600;
+}
+
+.selected-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #22c55e;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  animation: badgePop 0.3s ease;
+}
+
+@keyframes badgePop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Package Form */
+.package-form {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.package-form h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: white;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+/* Activities Section */
+.activities-section {
+  margin: 24px 0;
+  border-top: 2px solid #f0f0f0;
+  padding-top: 24px;
+}
+
+.activities-toggle {
+  width: 100%;
+  padding: 16px;
+  background: #f8f9fa;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.activities-toggle:hover {
+  background: #e9ecef;
+  border-color: #1a1a1a;
+}
+
+.arrow {
+  transition: transform 0.3s ease;
+  font-size: 12px;
+}
+
+.arrow.up {
+  transform: rotate(180deg);
+}
+
+.activities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.activity-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activity-checkbox:hover {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.activity-checkbox input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.activity-checkbox input[type="checkbox"]:checked + .activity-info {
+  color: #22c55e;
+}
+
+.activity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.activity-info strong {
+  font-size: 14px;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.activity-info span {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* Price Summary */
+.price-summary {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 24px 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 15px;
+}
+
+.summary-row span {
+  color: #666;
+}
+
+.summary-row strong {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.summary-row.total {
+  padding-top: 16px;
+  margin-top: 12px;
+  border-top: 2px solid rgba(34, 197, 94, 0.2);
+  font-size: 20px;
+}
+
+.summary-row.total strong {
+  font-size: 28px;
+  color: #22c55e;
+}
+
+/* Book Button */
+.book-package-btn {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  margin-top: 24px;
+}
+
+.book-package-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.4);
+}
+
+.btn-arrow {
+  font-size: 24px;
+  transition: transform 0.3s ease;
+}
+
+.book-package-btn:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Booking Modal */
+.booking-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: modalFadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 24px;
+  padding: 48px;
+  text-align: center;
+  max-width: 480px;
+  animation: modalSlideUp 0.4s ease;
+}
+
+.success-animation {
+  margin-bottom: 24px;
+}
+
+.checkmark {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  animation: checkmarkPop 0.5s ease;
+}
+
+.modal-content h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.modal-content p {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 8px 0;
+}
+
+.booking-ref {
+  font-weight: 600;
+  color: #22c55e;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .package-hero h1 {
+    font-size: 32px;
+  }
+
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .package-form {
+    padding: 20px;
+  }
+}
