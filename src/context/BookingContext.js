@@ -12,15 +12,15 @@ export const useBooking = () => {
 
 export const BookingProvider = ({ children }) => {
   const [searchParams, setSearchParams] = useState({
-    from: '',
-    to: '',
-    departureDate: '',
-    returnDate: '',
+    from: 'Hyderabad',
+    to: 'Goa',
+    departureDate: '2025-03-12',
+    returnDate: '2025-03-17',
     adults: 2,
-    children: 0,
+    children: 2,
     infants: 0,
     packageType: 'with-flight',
-    hotelStandard: '50',
+    hotelStandard: '5★',
     addLunch: false,
     addDinner: true
   });
@@ -54,12 +54,10 @@ export const BookingProvider = ({ children }) => {
       
       setBookingHistory(prev => [...prev, booking]);
       
-      // Save to localStorage
       const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
       existingBookings.push(booking);
       localStorage.setItem('bookings', JSON.stringify(existingBookings));
       
-      // Reset selections
       setSelectedOutbound(null);
       setSelectedReturn(null);
       

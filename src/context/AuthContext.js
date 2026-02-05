@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Check if user is logged in from localStorage
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       const userData = JSON.parse(savedUser);
@@ -25,7 +24,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (email, password) => {
-    // Get users from localStorage
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     const foundUser = users.find(u => u.email === email && u.password === password);
     
@@ -36,24 +34,21 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(userData));
       return { success: true };
     }
+    
     return { success: false, error: 'Invalid email or password' };
   };
 
   const signup = (name, email, password) => {
-    // Get existing users
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Check if user already exists
     if (users.find(u => u.email === email)) {
       return { success: false, error: 'User already exists' };
     }
     
-    // Add new user
     const newUser = { name, email, password };
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
     
-    // Auto login after signup
     const userData = { name, email };
     setUser(userData);
     setIsAuthenticated(true);
