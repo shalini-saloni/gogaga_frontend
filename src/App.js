@@ -1,49 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Sidebar from './components/Sidebar/Sidebar';
 import Header from './components/Header/Header';
 import SearchBar from './components/SearchBar/SearchBar';
 import FlightCard from './components/FlightCard/FlightCard';
+import flightData from './data/flightData.json';
 import './App.css';
 
 function App() {
+  // Start with completely empty state
+  const [query, setQuery] = useState({ from: '', to: '', date: '' });
+  const [results, setResults] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
+
+  const handleSearch = () => {
+    // Validation: Require all fields before filtering
+    if (!query.from || !query.to || !query.date) {
+      alert("Please enter a From city, To city, and select a Date.");
+      return;
+    }
+
+    // Filter logic strictly matches user input against your 50 JSON entries
+    const filtered = flightData.filter(f => 
+      f.from.toLowerCase() === query.from.toLowerCase() &&
+      f.to.toLowerCase() === query.to.toLowerCase()
+    );
+
+    setResults(filtered);
+    setHasSearched(true);
+  };
+
   return (
     <div className="app-container">
       <Sidebar />
       <main className="main-viewport">
         <Header />
-        <div className="content-padding">
-          <div className="tab-system">
-            <button className="tab active">Indian Holidays</button>
-            <button className="tab">International Holidays</button>
-          </div>
-          
-          <SearchBar />
+        <div className="content-area">
+          <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
 
-          <div className="flight-results-container">
-            {/* Outbound Column */}
-            <div className="flight-column">
-              <div className="column-header blue-grad">
-                <span>Departure {`->`} Hyderabad (HYD)</span>
-                <span>11:30 {`->`} 18:55</span>
-                <strong>₹ 105,300.00</strong>
-              </div>
-              <FlightCard airline="Air India Express" time="12:05" price="13,300" selected />
-              <FlightCard airline="Air India" time="11:30" price="105,300" highlight />
-              <FlightCard airline="Indigo" time="20:50" price="13,300" />
+          {/* Conditional Rendering: Only show results if search has been triggered */}
+          {!hasSearched ? (
+            <div className="welcome-placeholder">
+              <h2>Where would you like to go?</h2>
+              <p>Enter details above to see available flights from our database.</p>
             </div>
+          ) : (
+            <div className="flight-display-grid">
+              <div className="flight-column">
+                <h3 className="col-title outbound">Outbound Flights</h3>
+                {results.filter(f => f.type === "Outbound").map(flight => (
+                  <FlightCard key={flight.id} {...flight} />
+                ))}
+                {results.filter(f => f.type === "Outbound").length === 0 && (
+                  <p className="no-results">No outbound flights found for this route.</p>
+                )}
+              </div>
 
-            {/* Return Column */}
-            <div className="flight-column">
-              <div className="column-header blue-grad">
-                <span>Return  {`->`} Goa (GOI)</span>
-                <span>00:50 {`->`} 01:55</span>
-                <strong>₹ 105,300.00</strong>
+              <div className="flight-column">
+                <h3 className="col-title return">Return Flights</h3>
+                {results.filter(f => f.type === "Return").map(flight => (
+                  <FlightCard key={flight.id} {...flight} />
+                ))}
+                {results.filter(f => f.type === "Return").length === 0 && (
+                  <p className="no-results">No return flights found for this route.</p>
+                )}
               </div>
-              <FlightCard airline="Air India Express" time="12:05" price="13,300" selected />
-              <FlightCard airline="Air India" time="13:15" price="105,300" highlight />
-              <FlightCard airline="Indigo" time="20:50" price="13,300" />
             </div>
-          </div>
+          )}
         </div>
       </main>
     </div>

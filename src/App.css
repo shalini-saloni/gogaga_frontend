@@ -56,3 +56,70 @@
 .blue-grad {
   background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
 }
+
+.empty-state {
+  text-align: center;
+  margin-top: 100px;
+  color: #64748b;
+}
+
+.calendar-input {
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+/* Optional: Make the calendar icon bigger */
+.calendar-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.5);
+}
+
+.results-container {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.result-column {
+  flex: 1;
+}
+
+/* Placeholder styling when results are empty */
+.welcome-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #94a3b8;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+  margin-top: 40px;
+}
+
+/* Native Calendar UI adjustments */
+.calendar-picker {
+  cursor: pointer;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+}
+
+.calendar-picker::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.flight-display-grid {
+  display: flex;
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.no-results {
+  padding: 20px;
+  background: #f8fafc;
+  color: #64748b;
+  text-align: center;
+  border-radius: 8px;
+}

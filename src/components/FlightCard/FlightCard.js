@@ -1,34 +1,44 @@
-import React from 'react';
-import './FlightCard.css';
+import React from "react";
+import "./FlightCard.css";
 
-const FlightCard = ({ airline, time, price, highlight, selected }) => {
+const FlightCard = ({ flight, selected, onSelect }) => {
   return (
-    <div className={`flight-row ${highlight ? 'highlight-bg' : ''}`}>
+    <div
+      className={`flight-row ${selected ? "highlight-bg" : ""}`}
+      onClick={() => onSelect(flight)}
+    >
+      {/* Airline */}
       <div className="airline-section">
-        <div className="airline-logo">{airline[0]}</div>
+        <div className="airline-logo">{flight.airline[0]}</div>
         <div className="airline-meta">
-          <span className="name">{airline}</span>
+          <span className="name">{flight.airline}</span>
           <span className="code">IX 2879 TC</span>
         </div>
       </div>
-      
+
+      {/* Time */}
       <div className="time-section">
         <div className="time-block">
-          <strong>{time}</strong>
-          <span>HYD</span>
+          <strong>{flight.departure}</strong>
+          <span>{flight.from}</span>
         </div>
+
         <div className="duration-indicator">
           <span className="line"></span>
-          <small>1h 25m</small>
+          <small>Non Stop</small>
         </div>
+
         <div className="time-block">
-          <strong>13:30</strong>
-          <span>GOI</span>
+          <strong>{flight.arrival}</strong>
+          <span>{flight.to}</span>
         </div>
       </div>
 
+      {/* Price */}
       <div className="price-section">
-        <div className="price-tag">₹ {price} <span className="badge">PUBLISHED</span></div>
+        <div className="price-tag">
+          ₹ {flight.price} <span className="badge">PUBLISHED</span>
+        </div>
         <button className="rules-link">Rules</button>
       </div>
     </div>
