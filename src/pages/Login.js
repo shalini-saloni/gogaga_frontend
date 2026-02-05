@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Auth.css';
 
 const Login = () => {
@@ -12,13 +12,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-
-    if (!email || !password) {
-      setError('Please fill in all fields');
-      return;
-    }
-
     const result = login(email, password);
     if (result.success) {
       navigate('/');
@@ -31,56 +24,20 @@ const Login = () => {
     <div className="auth-page">
       <div className="auth-container">
         <div className="auth-card">
-          <div className="auth-header">
-            <h1>gogaga</h1>
-            <h2>Welcome Back</h2>
-            <p>Sign in to continue your journey</p>
-          </div>
-
-          {error && (
-            <div className="error-message">
-              <span className="error-icon">⚠️</span>
-              {error}
-            </div>
-          )}
-
-          <form className="auth-form" onSubmit={handleSubmit}>
+          <h1>Login to gogaga</h1>
+          <form onSubmit={handleSubmit}>
+            {error && <div className="error-message">{error}</div>}
             <div className="form-group">
-              <label>Email Address</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="your@email.com"
-                autoComplete="email"
-              />
+              <label>Email</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
-
             <div className="form-group">
               <label>Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                autoComplete="current-password"
-              />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
             </div>
-
-            <button type="submit" className="auth-submit-btn">
-              Sign In
-            </button>
+            <button type="submit" className="btn-primary">Login</button>
           </form>
-
-          <div className="auth-footer">
-            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
-          </div>
-        </div>
-
-        <div className="auth-decoration">
-          <div className="decoration-circle circle-1"></div>
-          <div className="decoration-circle circle-2"></div>
-          <div className="decoration-circle circle-3"></div>
+          <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
         </div>
       </div>
     </div>
