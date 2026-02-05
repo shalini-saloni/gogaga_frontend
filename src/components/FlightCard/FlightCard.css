@@ -72,3 +72,17 @@
   font-size: 0.8rem;
   cursor: pointer;
 }
+
+.flight-row {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.flight-row:hover {
+  background: #f1f5f9;
+}
+
+.highlight-bg {
+  background-color: #e0f2fe;
+  border-left: 4px solid #2563eb;
+}
