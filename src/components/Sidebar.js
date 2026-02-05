@@ -1,47 +1,111 @@
 import React from 'react';
-import { LayoutDashboard, Users, Map, Star, FileText, Settings, ShieldCheck, HeadphonesIcon } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
-  const menuGroups = [
-    {
-      label: 'MENU',
-      items: [
-        { name: 'Dashboard', icon: <LayoutDashboard size={18}/> },
-        { name: 'Leads', icon: <Users size={18}/>, badge: '20634' },
-        { name: 'Itineraries', icon: <Map size={18}/> },
-        { name: 'Vouchers', icon: <Star size={18}/> },
-        { name: 'Reports', icon: <FileText size={18}/> },
-        { name: 'Customer Support', icon: <HeadphonesIcon size={18}/> },
-      ]
-    },
-    {
-      label: 'USER CONTROL',
-      items: [
-        { name: 'User Settings', icon: <Settings size={18}/> },
-        { name: 'Masters Settings', icon: <Settings size={18}/> },
-        { name: 'HRM', icon: <ShieldCheck size={18}/> },
-      ]
-    }
-  ];
+  const location = useLocation();
+  const { user, isAuthenticated } = useAuth();
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-brand">gogaga</div>
+      <div className="sidebar-header">
+        <Link to="/" className="sidebar-logo">
+          <h1>gogaga</h1>
+        </Link>
+        <button className="compose-btn" title="Compose">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </button>
+      </div>
+
       <nav className="sidebar-nav">
-        {menuGroups.map((group, idx) => (
-          <div key={idx} className="menu-group">
-            <p className="group-label">{group.label}</p>
-            {group.items.map(item => (
-              <div key={item.name} className={`nav-item ${item.name === 'Leads' ? 'active' : ''}`}>
-                <span className="nav-icon">{item.icon}</span>
-                <span className="nav-text">{item.name}</span>
-                {item.badge && <span className="nav-badge">{item.badge}</span>}
-              </div>
-            ))}
-          </div>
-        ))}
+        <div className="nav-section">
+          <div className="nav-section-title">MENU</div>
+          <Link to="/" className={`nav-item ${location.pathname === '/' ? 'active' : ''}`}>
+            Dashboard
+            <span className="nav-arrow">›</span>
+          </Link>
+          <Link to="/packages" className={`nav-item ${location.pathname === '/packages' ? 'active' : ''}`}>
+            Leads
+            <span className="nav-badge">29M</span>
+            <span className="nav-arrow">›</span>
+          </Link>
+          <button type="button" className="nav-item nav-item-button">
+            Google Reviews
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Vouchers
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Accounts
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Reports
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Customer Support
+            <span className="nav-arrow">›</span>
+          </button>
+        </div>
+
+        <div className="nav-section">
+          <div className="nav-section-title">USER CONTROL</div>
+          <button type="button" className="nav-item nav-item-button">
+            User Settings
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Masters Settings
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            HR & Payroll
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Assets Management
+            <span className="nav-arrow">›</span>
+          </button>
+        </div>
+
+        <div className="nav-section">
+          <div className="nav-section-title">PARTICIPANTS</div>
+          <button type="button" className="nav-item nav-item-button">
+            Itinerary Customers
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Suppliers
+            <span className="nav-arrow">›</span>
+          </button>
+          <button type="button" className="nav-item nav-item-button">
+            Miscellaneous
+            <span className="nav-arrow">›</span>
+          </button>
+        </div>
       </nav>
+
+      <div className="sidebar-user">
+        {isAuthenticated ? (
+          <>
+            <div className="sidebar-user-avatar">
+              {user?.name?.charAt(0) || 'T'}
+            </div>
+            <span className="sidebar-user-name">{user?.name || 'Test'}</span>
+          </>
+        ) : (
+          <div className="sidebar-auth-links">
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+      </div>
     </aside>
   );
 };
