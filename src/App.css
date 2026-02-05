@@ -42,7 +42,8 @@
 }
 
 .flight-column {
-  background: #fff;
+  background: white;
+  padding-bottom: 10px;
 }
 
 .column-header {
@@ -111,9 +112,12 @@
 }
 
 .flight-display-grid {
-  display: flex;
-  gap: 24px;
-  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 25px;
+  border: 1px solid #e2e8f0;
+  background: #e2e8f0;
 }
 
 .no-results {
@@ -131,12 +135,12 @@
 .summary-bar {
   background: linear-gradient(90deg, #0f172a, #1e3a8a);
   color: white;
-  padding: 15px 25px;
-  border-radius: 8px;
+  padding: 14px 25px;
+  border-radius: 6px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
-  font-weight: 600;
 }
 
 .summary-price {
@@ -144,9 +148,10 @@
 }
 
 .col-title {
-  padding: 12px;
+  padding: 12px 15px;
   font-weight: 700;
   color: white;
+  font-size: 14px;
 }
 
 .col-title.outbound {

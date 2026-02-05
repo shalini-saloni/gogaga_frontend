@@ -1,45 +1,40 @@
-import React from "react";
-import "./FlightCard.css";
+import React from 'react';
+import './FlightCard.css';
 
-const FlightCard = ({ flight, selected, onSelect }) => {
+const FlightCard = ({ airline, departure, arrival, price, duration, departureTime, arrivalTime, departureDate, arrivalDate, outbound, inbound, handBaggage, checkInBaggage, refundable, rules }) => {
+  // Construct path based on airline name
+  const logoUrl = `/assets/${airline.replace(/\s+/g, '_')}.png`;
+
   return (
-    <div
-      className={`flight-row ${selected ? "highlight-bg" : ""}`}
-      onClick={() => onSelect(flight)}
-    >
-      {/* Airline */}
-      <div className="airline-section">
-        <div className="airline-logo">{flight.airline[0]}</div>
-        <div className="airline-meta">
-          <span className="name">{flight.airline}</span>
-          <span className="code">IX 2879 TC</span>
+    <div className="detailed-card">
+      <div className="card-top">
+        <img src={logoUrl} alt={airline} className="airline-logo-img" />
+        <div className="airline-info">
+          <strong>{airline}</strong>
+          <small>IX 2879 TC</small>
         </div>
       </div>
-
-      {/* Time */}
-      <div className="time-section">
-        <div className="time-block">
-          <strong>{flight.departure}</strong>
-          <span>{flight.from}</span>
+      
+      <div className="flight-times">
+        <div className="time-box">
+          <strong>{departure}</strong>
+          <span>HYD</span>
         </div>
-
-        <div className="duration-indicator">
-          <span className="line"></span>
-          <small>Non Stop</small>
+        <div className="duration-graphic">
+          <small>1h 25m</small>
+          <div className="plane-line"></div>
         </div>
-
-        <div className="time-block">
-          <strong>{flight.arrival}</strong>
-          <span>{flight.to}</span>
+        <div className="time-box">
+          <strong>{arrival}</strong>
+          <span>GOI</span>
         </div>
       </div>
-
-      {/* Price */}
-      <div className="price-section">
+      
+      <div className="card-bottom">
         <div className="price-tag">
-          ₹ {flight.price} <span className="badge">PUBLISHED</span>
+          ₹ {price.toLocaleString()}
+          <span className="p-badge">PUBLI</span>
         </div>
-        <button className="rules-link">Rules</button>
       </div>
     </div>
   );
