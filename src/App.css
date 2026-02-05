@@ -19,8 +19,15 @@ body {
   flex-direction: column;
 }
 
+.app-with-sidebar {
+  flex-direction: row;
+}
+
 .main-content {
   flex: 1;
+  min-width: 0;
+  background: #f5f7fa;
+  overflow-x: hidden;
 }
 
 /* Utility Classes */

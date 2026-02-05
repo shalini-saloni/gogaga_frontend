@@ -11,6 +11,7 @@ const Dashboard = () => {
   const { isAuthenticated } = useAuth();
   const { 
     searchParams, 
+    updateSearchParams,
     selectedOutbound, 
     selectedReturn, 
     selectOutboundFlight, 
@@ -23,6 +24,15 @@ const Dashboard = () => {
   const [hasSearched, setHasSearched] = useState(false);
   const [showBookingModal, setShowBookingModal] = useState(false);
 
+  const getDefaultOrigin = (destination) => {
+    const routeMap = {
+      'Mumbai': 'Delhi', 'Delhi': 'Mumbai', 'Bangalore': 'Hyderabad',
+      'Hyderabad': 'Bangalore', 'Chennai': 'Kolkata', 'Kolkata': 'Chennai',
+      'Goa': 'Delhi', 'Pune': 'Mumbai', 'Jaipur': 'Delhi', 'Ahmedabad': 'Mumbai'
+    };
+    return routeMap[destination] || 'Mumbai';
+  };
+
   const handleSearch = (params) => {
     if (!isAuthenticated) {
       alert('Please login to search flights');
@@ -30,19 +40,25 @@ const Dashboard = () => {
       return;
     }
 
-    // Filter flights based on search criteria
+    const to = params.to;
+    const from = params.from || (to ? getDefaultOrigin(to) : 'Mumbai') || 'Mumbai';
+    const departureDate = params.departureDate;
+    const returnDate = params.returnDate || params.departureDate;
+
+    updateSearchParams({ ...params, from });
+
     const outboundFlights = flightData.filter(flight => 
-      flight.from === params.from &&
-      flight.to === params.to &&
+      flight.from === from &&
+      flight.to === to &&
       flight.type === 'Outbound' &&
-      flight.date === params.departureDate
+      flight.date === departureDate
     );
 
     const returnFlights = flightData.filter(flight => 
-      flight.from === params.to &&
-      flight.to === params.from &&
+      flight.from === to &&
+      flight.to === from &&
       flight.type === 'Return' &&
-      flight.date === params.returnDate
+      flight.date === returnDate
     );
 
     setSearchResults({
@@ -71,19 +87,30 @@ const Dashboard = () => {
 
   const getTotalPrice = () => {
     if (!selectedOutbound || !selectedReturn) return 0;
-    const basePrice = selectedOutbound.price + selectedReturn.price;
-    const totalPassengers = searchParams.adults + searchParams.children;
-    return basePrice * totalPassengers;
+    const totalPassengers = searchParams.adults + searchParams.children + searchParams.infants;
+    return (selectedOutbound.price + selectedReturn.price) * totalPassengers;
+  };
+
+  const getPassengerText = () => {
+    const parts = [];
+    if (searchParams.adults > 0) parts.push(`${searchParams.adults} adult${searchParams.adults > 1 ? 's' : ''}`);
+    if (searchParams.children > 0) parts.push(`${searchParams.children} child${searchParams.children !== 1 ? 'ren' : ''}`);
+    if (searchParams.infants > 0) parts.push(`${searchParams.infants} infant${searchParams.infants > 1 ? 's' : ''}`);
+    return parts.join(', ');
+  };
+
+  const getAirportCode = (city) => {
+    const codes = {
+      'Delhi': 'DEL', 'Mumbai': 'BOM', 'Bangalore': 'BLR', 'Chennai': 'MAA',
+      'Kolkata': 'CCU', 'Hyderabad': 'HYD', 'Goa': 'GOI', 'Pune': 'PNQ',
+      'Jaipur': 'JAI', 'Ahmedabad': 'AMD'
+    };
+    return codes[city] || city.substring(0, 3).toUpperCase();
   };
 
   return (
     <div className="dashboard-page">
       <div className="dashboard-container">
-        <div className="dashboard-hero">
-          <h1>Find Your Perfect Flight</h1>
-          <p>Search and book flights from over 50+ airlines worldwide</p>
-        </div>
-
         <SearchForm onSearch={handleSearch} />
 
         {hasSearched && (
@@ -92,18 +119,74 @@ const Dashboard = () => {
               <div className="no-results">
                 <div className="no-results-icon">✈️</div>
                 <h3>No flights found</h3>
-                <p>Try adjusting your search criteria</p>
+                <p>Try adjusting your search criteria or destination</p>
               </div>
             ) : (
               <>
-                {searchResults.outbound.length > 0 && (
-                  <div className="flight-section">
-                    <h2 className="section-title">
-                      <span className="title-icon">🛫</span>
-                      Outbound Flights
-                      <span className="flight-count">{searchResults.outbound.length} flights</span>
-                    </h2>
-                    <div className="flights-grid">
+                <div className="flight-summary-bar">
+                  <div className="summary-bar-content">
+                    <div className="summary-departure">
+                      <div className="summary-label">Departure</div>
+                      <div className="summary-airline">
+                        {selectedOutbound ? selectedOutbound.airline : 'Select flight'}
+                      </div>
+                      <div className="summary-time">
+                        {selectedOutbound 
+                          ? `${selectedOutbound.departure} - ${selectedOutbound.arrival}` 
+                          : '-'}
+                      </div>
+                      <div className="summary-price">
+                        {selectedOutbound 
+                          ? `₹${(selectedOutbound.price * (searchParams.adults + searchParams.children + searchParams.infants)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}` 
+                          : '-'}
+                      </div>
+                    </div>
+                    <div className="summary-return">
+                      <div className="summary-label">Return</div>
+                      <div className="summary-airline">
+                        {selectedReturn ? selectedReturn.airline : 'Select flight'}
+                      </div>
+                      <div className="summary-time">
+                        {selectedReturn 
+                          ? `${selectedReturn.departure} - ${selectedReturn.arrival}` 
+                          : '-'}
+                      </div>
+                      <div className="summary-price">
+                        {selectedReturn 
+                          ? `₹${(selectedReturn.price * (searchParams.adults + searchParams.children + searchParams.infants)).toLocaleString('en-IN', { minimumFractionDigits: 2 })}` 
+                          : '-'}
+                      </div>
+                    </div>
+                    <div className="summary-total">
+                      <div className="summary-passengers">
+                        for {getPassengerText()}
+                      </div>
+                      <div className="summary-total-fare">
+                        Total Round fare ₹{getTotalPrice().toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+                      </div>
+                      {selectedOutbound && selectedReturn && (
+                        <button 
+                          className="confirm-booking-inline-btn"
+                          onClick={handleConfirmBooking}
+                        >
+                          Continue
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flights-two-column">
+                  <div className="flight-column">
+                    <h3 className="column-header">
+                      Outbound: {searchParams.from ? `${getAirportCode(searchParams.from)} (${searchParams.from})` : ''}
+                    </h3>
+                    <div className="column-headers">
+                      <span>Departure</span>
+                      <span>Duration</span>
+                      <span>Arrival</span>
+                    </div>
+                    <div className="flights-list">
                       {searchResults.outbound.map(flight => (
                         <FlightCard
                           key={flight.id}
@@ -111,20 +194,21 @@ const Dashboard = () => {
                           type="Outbound"
                           isSelected={selectedOutbound?.id === flight.id}
                           onSelect={selectOutboundFlight}
+                          variant="compact"
                         />
                       ))}
                     </div>
                   </div>
-                )}
-
-                {searchResults.return.length > 0 && (
-                  <div className="flight-section">
-                    <h2 className="section-title">
-                      <span className="title-icon">🛬</span>
-                      Return Flights
-                      <span className="flight-count">{searchResults.return.length} flights</span>
-                    </h2>
-                    <div className="flights-grid">
+                  <div className="flight-column">
+                    <h3 className="column-header">
+                      Inbound: {searchParams.to ? `${getAirportCode(searchParams.to)} (${searchParams.to})` : ''}
+                    </h3>
+                    <div className="column-headers">
+                      <span>Departure</span>
+                      <span>Duration</span>
+                      <span>Arrival</span>
+                    </div>
+                    <div className="flights-list">
                       {searchResults.return.map(flight => (
                         <FlightCard
                           key={flight.id}
@@ -132,42 +216,12 @@ const Dashboard = () => {
                           type="Return"
                           isSelected={selectedReturn?.id === flight.id}
                           onSelect={selectReturnFlight}
+                          variant="compact"
                         />
                       ))}
                     </div>
                   </div>
-                )}
-
-                {selectedOutbound && selectedReturn && (
-                  <div className="booking-summary">
-                    <div className="summary-content">
-                      <div className="summary-details">
-                        <h3>Booking Summary</h3>
-                        <div className="summary-row">
-                          <span>Outbound:</span>
-                          <strong>{selectedOutbound.airline} - ₹{selectedOutbound.price.toLocaleString()}</strong>
-                        </div>
-                        <div className="summary-row">
-                          <span>Return:</span>
-                          <strong>{selectedReturn.airline} - ₹{selectedReturn.price.toLocaleString()}</strong>
-                        </div>
-                        <div className="summary-row">
-                          <span>Passengers:</span>
-                          <strong>{searchParams.adults + searchParams.children}</strong>
-                        </div>
-                        <div className="summary-divider"></div>
-                        <div className="summary-row total">
-                          <span>Total Amount:</span>
-                          <strong>₹{getTotalPrice().toLocaleString()}</strong>
-                        </div>
-                      </div>
-                      <button className="confirm-booking-btn" onClick={handleConfirmBooking}>
-                        Confirm Booking
-                        <span className="btn-arrow">→</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
+                </div>
               </>
             )}
           </div>
@@ -176,17 +230,17 @@ const Dashboard = () => {
         {!hasSearched && (
           <div className="features-section">
             <div className="feature-card">
-              <div className="feature-icon"></div>
+              <div className="feature-icon">💰</div>
               <h3>Best Prices</h3>
               <p>Compare prices from multiple airlines and get the best deals</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon"></div>
+              <div className="feature-icon">🔒</div>
               <h3>Secure Booking</h3>
               <p>Your payment information is safe and secure with us</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon"></div>
+              <div className="feature-icon">⚡</div>
               <h3>Instant Confirmation</h3>
               <p>Get instant booking confirmation via email and SMS</p>
             </div>

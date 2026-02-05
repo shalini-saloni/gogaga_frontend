@@ -20,7 +20,9 @@ export const BookingProvider = ({ children }) => {
     children: 0,
     infants: 0,
     packageType: 'with-flight',
-    hotelStandard: '3-4'
+    hotelStandard: '50',
+    addLunch: false,
+    addDinner: true
   });
 
   const [selectedOutbound, setSelectedOutbound] = useState(null);

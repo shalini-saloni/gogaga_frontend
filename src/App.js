@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { BookingProvider } from './context/BookingContext';
-import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard';
 import PackageWithoutFlight from './pages/PackageWithoutFlight';
 import Login from './pages/Login';
@@ -14,8 +14,8 @@ function App() {
     <AuthProvider>
       <BookingProvider>
         <Router>
-          <div className="App">
-            <Header />
+          <div className="App app-with-sidebar">
+            <Sidebar />
             <main className="main-content">
               <Routes>
                 <Route path="/" element={<Dashboard />} />

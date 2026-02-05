@@ -72,6 +72,125 @@
   margin: 0;
 }
 
+/* Blue summary bar - reference style */
+.flight-summary-bar {
+  background: #0e2862;
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  color: white;
+}
+
+.summary-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.summary-departure,
+.summary-return {
+  flex: 1;
+  min-width: 180px;
+}
+
+.summary-label {
+  font-size: 12px;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.summary-airline {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.summary-time {
+  font-size: 14px;
+  opacity: 0.95;
+}
+
+.summary-price {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.summary-total {
+  text-align: center;
+  min-width: 200px;
+}
+
+.summary-passengers {
+  font-size: 13px;
+  opacity: 0.95;
+}
+
+.summary-total-fare {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 4px;
+}
+
+.confirm-booking-inline-btn {
+  margin-top: 12px;
+  padding: 10px 24px;
+  background: white;
+  color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-booking-inline-btn:hover {
+  background: #f0f9ff;
+  transform: translateY(-2px);
+}
+
+/* Two-column flight layout */
+.flights-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.flight-column {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.column-header {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+}
+
+.column-headers {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+  padding: 0 12px;
+}
+
+.flights-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 .flight-section {
   margin-bottom: 48px;
   animation: slideIn 0.5s ease;
@@ -358,8 +477,28 @@
 
 /* Responsive */
 @media (max-width: 1200px) {
+  .flights-two-column {
+    grid-template-columns: 1fr;
+  }
+
   .flights-grid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .summary-bar-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .summary-total {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .flight-summary-bar {
+    padding: 16px;
   }
 }
 
@@ -406,3 +545,5 @@
     margin: 20px;
   }
 }
+
+
