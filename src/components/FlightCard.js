@@ -1,7 +1,7 @@
 import React from 'react';
 import './FlightCard.css';
 
-const FlightCard = ({ flight, onSelect, isSelected, type }) => {
+const FlightCard = ({ flight, onSelect, isSelected, type, variant = 'default' }) => {
   const { airline, departure, arrival, price, from, to } = flight;
   
   const logoUrl = `/assets/${airline.replace(/\s+/g, '_')}.png`;
@@ -22,19 +22,79 @@ const FlightCard = ({ flight, onSelect, isSelected, type }) => {
 
   const getAirportCode = (city) => {
     const codes = {
-      'Delhi': 'DEL',
-      'Mumbai': 'BOM',
-      'Bangalore': 'BLR',
-      'Chennai': 'MAA',
-      'Kolkata': 'CCU',
-      'Hyderabad': 'HYD',
-      'Goa': 'GOI',
-      'Pune': 'PNQ',
-      'Jaipur': 'JAI',
-      'Ahmedabad': 'AMD'
+      'Delhi': 'DEL', 'Mumbai': 'BOM', 'Bangalore': 'BLR', 'Chennai': 'MAA',
+      'Kolkata': 'CCU', 'Hyderabad': 'HYD', 'Goa': 'GOI', 'Pune': 'PNQ',
+      'Jaipur': 'JAI', 'Ahmedabad': 'AMD'
     };
     return codes[city] || city.substring(0, 3).toUpperCase();
   };
+
+  const isRefundable = Math.random() > 0.3;
+
+  if (variant === 'compact') {
+    return (
+      <div 
+        className={`flight-card flight-card-compact ${isSelected ? 'selected' : ''}`}
+        onClick={() => onSelect(flight)}
+      >
+        <div className="compact-radio">
+          <div className={`radio-circle ${isSelected ? 'selected' : ''}`} />
+        </div>
+        <div className="compact-content">
+          <div className="compact-airline">
+            <div className="compact-logo-wrap">
+              <img 
+                src={logoUrl} 
+                alt={airline} 
+                className="compact-logo" 
+                onError={(e) => { e.target.style.display = 'none'; }}
+              />
+              <span className="compact-logo-fallback">{airline.charAt(0)}</span>
+            </div>
+            <span className="compact-airline-name">{airline}</span>
+          </div>
+          <div className="compact-times">
+            <div className="compact-time-block">
+              <span className="compact-time">{departure}</span>
+              <span className="compact-airport">{getAirportCode(from)}</span>
+            </div>
+            <span className="compact-duration">{duration}</span>
+            <div className="compact-time-block">
+              <span className="compact-time">{arrival}</span>
+              <span className="compact-airport">{getAirportCode(to)}</span>
+            </div>
+          </div>
+          <div className="compact-price">₹ {price.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</div>
+          <div className="compact-details">
+            <span className="compact-detail">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="2" y="7" width="20" height="14" rx="2"/>
+                <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+              </svg>
+              Hand Baggage - 7 Kg
+            </span>
+            <span className="compact-detail">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+              </svg>
+              Check-in Baggage
+            </span>
+            <span className={`compact-detail refundable ${isRefundable ? 'yes' : 'no'}`}>
+              <span className="refund-dot" />
+              {isRefundable ? 'Refundable' : 'Non-refundable'}
+            </span>
+            <button
+              type="button"
+              className="compact-rules"
+              onClick={(e) => e.stopPropagation()}
+            >
+              Rules
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`flight-card ${isSelected ? 'selected' : ''}`}>

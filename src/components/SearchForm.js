@@ -308,7 +308,7 @@ const SearchForm = ({ onSearch }) => {
 
         <div className="form-actions">
           <button type="submit" className="search-submit-btn">
-            <span className="search-icon">🔍</span>
+            <span className="search-icon"></span>
             Search Flights
           </button>
         </div>

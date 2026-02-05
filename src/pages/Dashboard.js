@@ -176,17 +176,17 @@ const Dashboard = () => {
         {!hasSearched && (
           <div className="features-section">
             <div className="feature-card">
-              <div className="feature-icon">💰</div>
+              <div className="feature-icon"></div>
               <h3>Best Prices</h3>
               <p>Compare prices from multiple airlines and get the best deals</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">🔒</div>
+              <div className="feature-icon"></div>
               <h3>Secure Booking</h3>
               <p>Your payment information is safe and secure with us</p>
             </div>
             <div className="feature-card">
-              <div className="feature-icon">⚡</div>
+              <div className="feature-icon"></div>
               <h3>Instant Confirmation</h3>
               <p>Get instant booking confirmation via email and SMS</p>
             </div>
