@@ -1,0 +1,95 @@
+.filter-card { 
+    background: #fff; 
+    padding: 20px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+    margin-bottom: 25px; 
+}
+
+.filter-row-top { 
+    border-bottom: 1px solid #e2e8f0; 
+    margin-bottom: 20px; 
+    display: flex; 
+    gap: 20px; 
+}
+
+.sub-tab { 
+    border: none; 
+    background: none; 
+    padding: 10px 0; 
+    font-weight: 600; 
+    cursor: pointer; 
+    color: #64748b; 
+}
+
+.sub-tab.active { 
+    color: #000; 
+    border-bottom: 2px solid #000; 
+}
+
+.filter-inputs { 
+    display: flex; 
+    align-items: flex-end; 
+    gap: 15px; 
+    margin-bottom: 15px; 
+}
+
+.input-group { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #e2e8f0; 
+    padding: 5px 12px; 
+    border-radius: 6px; 
+}
+
+.input-group label { 
+    font-size: 11px; 
+    color: #94a3b8; 
+    margin-bottom: 2px; 
+}
+
+.input-group input, .input-group select { 
+    border: none; 
+    outline: none; 
+    font-weight: 500; 
+    font-size: 14px; 
+}
+
+.main-search-btn { 
+    background: #000; 
+    color: #fff; 
+    border: none; 
+    height: 45px; 
+    width: 45px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+}
+
+.hotel-stars { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    font-size: 13px; 
+}
+
+.star-btn { 
+    padding: 4px 10px; 
+    border: 1px solid #e2e8f0; 
+    border-radius: 4px; 
+    background: #fff; 
+    cursor: pointer; 
+}
+
+.star-btn.active { 
+    background: #000; 
+    color: #fff; 
+    border-color: #000; 
+}
+
+.meal-options { 
+    margin-left: auto; 
+    display: flex; 
+    gap: 15px; 
+    align-items: center; 
+}
