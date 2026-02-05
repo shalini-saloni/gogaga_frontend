@@ -123,3 +123,36 @@
   text-align: center;
   border-radius: 8px;
 }
+
+.content-area {
+  padding: 20px 40px;
+}
+
+.summary-bar {
+  background: linear-gradient(90deg, #0f172a, #1e3a8a);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.summary-price {
+  font-size: 18px;
+}
+
+.col-title {
+  padding: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+.col-title.outbound {
+  background: #0f172a;
+}
+
+.col-title.return {
+  background: #1e3a8a;
+}
