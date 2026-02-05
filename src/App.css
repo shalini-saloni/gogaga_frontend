@@ -1,163 +1,72 @@
-.app-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f8fafc;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.main-viewport {
-  flex: 1;
-  overflow-y: auto;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f5f7fa;
 }
 
-.content-padding {
-  padding: 20px 40px;
-}
-
-.tab-system {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.tab {
-  padding: 8px 16px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-weight: 600;
-  color: #64748b;
-}
-
-.tab.active {
-  color: #000;
-  border-bottom: 2px solid #000;
-}
-
-.flight-results-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px; 
-  background: #e2e8f0; 
-  border: 1px solid #e2e8f0;
-}
-
-.flight-column {
-  background: white;
-  padding-bottom: 10px;
-}
-
-.column-header {
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  font-size: 0.9rem;
-}
-
-.blue-grad {
-  background: linear-gradient(90deg, #0f172a 0%, #1e3a8a 100%);
-}
-
-.empty-state {
-  text-align: center;
-  margin-top: 100px;
-  color: #64748b;
-}
-
-.calendar-input {
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-/* Optional: Make the calendar icon bigger */
-.calendar-input::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  filter: invert(0.5);
-}
-
-.results-container {
-  display: flex;
-  gap: 30px;
-  margin-top: 20px;
-}
-
-.result-column {
-  flex: 1;
-}
-
-/* Placeholder styling when results are empty */
-.welcome-placeholder {
+.App {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Loading Spinner */
+.loading {
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
-  color: #94a3b8;
-  border: 2px dashed #e2e8f0;
-  border-radius: 12px;
-  margin-top: 40px;
+  min-height: 400px;
 }
 
-/* Native Calendar UI adjustments */
-.calendar-picker {
-  cursor: pointer;
-  padding: 8px;
-  border: 1px solid #cbd5e1;
-  border-radius: 4px;
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f0f0f0;
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-.calendar-picker::-webkit-calendar-picker-indicator {
-  cursor: pointer;
-  opacity: 0.6;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.flight-display-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  margin-top: 25px;
-  border: 1px solid #e2e8f0;
-  background: #e2e8f0;
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
-.no-results {
-  padding: 20px;
-  background: #f8fafc;
-  color: #64748b;
-  text-align: center;
-  border-radius: 8px;
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
 }
 
-.content-area {
-  padding: 20px 40px;
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
 }
 
-.summary-bar {
-  background: linear-gradient(90deg, #0f172a, #1e3a8a);
-  color: white;
-  padding: 14px 25px;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.summary-price {
-  font-size: 18px;
-}
-
-.col-title {
-  padding: 12px 15px;
-  font-weight: 700;
-  color: white;
-  font-size: 14px;
-}
-
-.col-title.outbound {
-  background: #0f172a;
-}
-
-.col-title.return {
-  background: #1e3a8a;
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
