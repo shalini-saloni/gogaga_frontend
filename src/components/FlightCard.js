@@ -1,4 +1,9 @@
 import React from 'react';
+import airIndia from '../assets/Air_India.webp';
+import airIndiaExpress from '../assets/Air_India_Express.jpeg';
+import indigo from '../assets/Indigo.png';
+import starAir from '../assets/Star_Air.png';
+
 import './FlightCard.css';
 
 const FlightCard = ({ flight, onSelect, isSelected }) => {
@@ -15,10 +20,10 @@ const FlightCard = ({ flight, onSelect, isSelected }) => {
 
   const getAirlineLogo = (airlineName) => {
     const airlineLogos = {
-      'Air India': '../assets/Air_India_Express.jpeg',
-      'Air India Express': '🟠',
-      'Indigo': '🔵',
-      'Star Air': '⭐'
+      'Air India': airIndia,
+      'Air India Express': airIndiaExpress,
+      'Indigo': indigo,
+      'Star Air': starAir
     };
     return airlineLogos[airlineName] || '✈️';
   };
@@ -38,7 +43,13 @@ const FlightCard = ({ flight, onSelect, isSelected }) => {
     >
       <div className="flight-card-header">
         <div className="airline-section">
-          <div className="airline-logo">{getAirlineLogo(airline)}</div>
+          <div className="airline-logo">
+            <img
+              src={getAirlineLogo(airline)}
+              alt={airline}
+              className="airline-logo"
+            />
+          </div>
           <div className="airline-info">
             <div className="airline-name">{airline}</div>
             <div className="flight-number">{flightNumber}</div>

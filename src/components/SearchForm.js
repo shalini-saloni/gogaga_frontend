@@ -247,6 +247,10 @@ const SearchForm = ({ onSearch }) => {
             <span className="detail-label">From</span>
             <span className="detail-value">{getFromLabel()}</span>
           </div>
+          <div className="flight-date-info">
+            <span className="date-label">Departure Date</span>
+            <span className="date-value">{formatDate(formData.departureDate)}</span>
+          </div>
           <div className="flight-swap">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <polyline points="17 1 21 5 17 9"></polyline>
@@ -258,13 +262,6 @@ const SearchForm = ({ onSearch }) => {
           <div className="flight-detail">
             <span className="detail-label">To</span>
             <span className="detail-value">{getToLabel()}</span>
-          </div>
-        </div>
-
-        <div className="flight-dates-row">
-          <div className="flight-date-info">
-            <span className="date-label">Departure Date</span>
-            <span className="date-value">{formatDate(formData.departureDate)}</span>
           </div>
           <div className="flight-date-info">
             <span className="date-label">Return Date</span>

@@ -294,8 +294,10 @@
 
 .meal-options {
   display: flex;
+  flex-direction: row;
   gap: 16px;
-  padding-top: 20px;
+  padding-top: 5px;
+  align-items: center;
 }
 
 .meal-options label {
