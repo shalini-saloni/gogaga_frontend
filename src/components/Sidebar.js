@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
 import './Sidebar.css';
 
 const Sidebar = () => {
   const location = useLocation();
-  const { user, isAuthenticated } = useAuth();
   const [expandedSections, setExpandedSections] = useState({
     leads: false,
     vouchers: false,

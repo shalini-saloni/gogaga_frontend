@@ -7,7 +7,7 @@ import starAir from '../assets/Star_Air.png';
 import './FlightCard.css';
 
 const FlightCard = ({ flight, onSelect, isSelected }) => {
-  const { airline, flightNumber, departure, arrival, duration, from, to, price, handBaggage, checkInBaggage, refundable, stops } = flight;
+  const { airline, flightNumber, departure, arrival, duration, from, to, price, handBaggage,refundable, stops } = flight;
 
   const getAirportCode = (city) => {
     const codes = {

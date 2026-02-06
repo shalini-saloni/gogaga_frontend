@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import { useBooking } from '../context/BookingContext';
-import { useNavigate } from 'react-router-dom';
 import SearchForm from '../components/SearchForm';
 import FlightCard from '../components/FlightCard';
 import flightData from '../data/flightData.json';
 import './Dashboard.css';
 
 const Dashboard = () => {
-  const { isAuthenticated } = useAuth();
   const { 
     searchParams, 
     selectedOutbound, 
@@ -16,7 +13,6 @@ const Dashboard = () => {
     selectOutboundFlight, 
     selectReturnFlight 
   } = useBooking();
-  const navigate = useNavigate();
 
   const [outboundFlights, setOutboundFlights] = useState([]);
   const [returnFlights, setReturnFlights] = useState([]);
@@ -26,7 +22,7 @@ const Dashboard = () => {
     if (searchParams.from && searchParams.to) {
       handleSearch(searchParams);
     }
-  }, []);
+  }, [searchParams]);
 
   const handleSearch = (params) => {
     const outbound = flightData.filter(f => 
